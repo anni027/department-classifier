@@ -25,31 +25,46 @@ is the only place SQL lives.
 
 1. Every session asks 4 fixed **seed questions** (`q01`-`q04`, an explicit constant
    in `core/classifier.py` — never derived from array position).
-2. Every trait starts at `0.5`. Each 1-5 answer normalizes to `(value-1)/4`.
-3. Trait update: primary trait `new = old*0.6 + normalized*0.4`; each secondary
-   trait uses half that learning rate (`new = old*0.8 + normalized*0.2`).
-4. `department_score = sum(trait_score * department_weight)` over all 15 traits
-   (a plain dot product — no cosine similarity, no normalization, per spec).
-5. Scores -> probabilities via a numerically-stable softmax.
-6. After each answer (once 8+ have been answered), stop if `top_prob >= 0.65`
-   AND `top_prob - second_prob >= 0.15`. Always stop at 12 questions.
+2. Every trait has a prior of `0.5`. Each 1-5 answer normalizes to `(value-1)/4`.
+3. Trait score: the weighted mean of the `0.5` prior (weight `0.6`) and every
+   normalized answer that touched the trait (weight `1.0` as that answer's
+   primary trait, `0.5` as a secondary). Untouched traits stay at `0.5`; there
+   is no learning rate, so answer order doesn't matter.
+4. `department_score` = cosine similarity between the **mean-centred** trait
+   vector and the **mean-centred** department weight vector, over all 15 traits.
+   Centring compares profile *shape* rather than magnitude, so a department with
+   broadly high weights gets no head start. If either centred vector is all
+   zeros — a flat profile, i.e. session start or a student who answers `3` to
+   everything — the score is `0.0` for every department, which is the honest
+   "no signal yet" answer and yields a uniform `1/15` at step 5.
+5. Scores -> probabilities via a numerically-stable softmax at
+   `TEMPERATURE = 0.05` (`core/scoring.py`). This is the tuning knob: lower
+   sharpens confidence and stops the quiz sooner, higher flattens it and asks
+   more questions.
+6. After each answer (once 14+ have been answered), stop if `top_prob >= 0.65`
+   AND `top_prob - second_prob >= 0.15`. Always stop at 15 questions — a
+   product ceiling on how long students will stay engaged, not a measured
+   optimum. The minimum is set by measured accuracy: at the old 8/12 the right
+   department came out on top for only 73% of profile-matched students, because
+   confidence crosses the threshold while most traits are still at the prior.
+   See `CLASSIFIER_SPEC.md` for the accuracy figures and for why adding
+   questions on low-variance traits makes results worse at this cap.
 7. Adaptive question selection (after the 4 seeds) scores every unanswered
    question: `+3 * top1_dept.weight[trait]` (continuous, not a threshold),
    `+2 * top2_dept.weight[trait]`, `+3` if the trait is untested so far, `+2`
    if the question's `distinguishes` list covers both leading departments,
    plus a `0-0.05` jitter to break exact ties only.
-8. The final explanation (what you'll do / skills gained / strongest traits)
-   is generated deterministically from the department's `description` string
-   and the user's trait scores — `departments.json` has no separate
-   responsibilities/skills fields, so nothing is invented there; the raw data
-   files are never modified.
+8. The final explanation is deterministic. "What you'll do" and "skills
+   gained" are the department's own `responsibilities` and `skills` from
+   `departments.json` (the Taqneeq Department Guide content), returned
+   verbatim — nothing is paraphrased or invented. Only "strongest traits"
+   depends on the student, ranked by `trait_score * department_weight`.
 
-A known, inherent property of this exact (unnormalized) formula: departments
-whose weight vector is high across *many* traits (e.g. Workshops, Marketing)
-have a structural head start over narrow specialists, since every trait
-starts at a neutral 0.5. See `backend/scripts/personas.py` output for how
-this plays out across ten synthetic personas — most still land somewhere
-sensible, but it's worth knowing about if a result looks surprising.
+Cosine similarity is used for classification (step 4) and, separately, by
+`GET /departments/{id}/similar`. The two are not the same computation: the
+browsing endpoint compares *raw, uncentred* department weight vectors and is
+unaffected by the classification rules above. See `CLASSIFIER_SPEC.md` for the
+measurements that motivated the current scoring rules.
 
 ## Installation
 
