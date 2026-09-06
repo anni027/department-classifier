@@ -19,10 +19,14 @@ def _find(departments: list[Department], department_id: str) -> Department:
 
 
 def _cosine_similarity(a: dict[str, float], b: dict[str, float]) -> float:
-    """Plain-Python cosine similarity over trait-weight vectors.
+    """Plain-Python cosine similarity over RAW, uncentred trait-weight vectors.
 
-    The ONE place cosine similarity is used in this app — explicitly
-    permitted for department browsing only, never for classification.
+    Not the same computation as classification's department_affinity(), which
+    mean-centres both vectors first. This one is a browsing aid: it answers
+    "which departments look like this one", so absolute weight magnitude is
+    part of the answer. Keep it uncentred, keep it out of classification, and
+    do not feed its output back into scoring. See CLASSIFIER_SPEC.md,
+    "Scope of this change: cosine similarity".
     """
     dot = sum(a[trait] * b[trait] for trait in a)
     norm_a = math.sqrt(sum(v * v for v in a.values()))
@@ -42,7 +46,14 @@ def get_department(
     department_id: str, departments: list[Department] = Depends(get_departments)
 ) -> DepartmentDetailOut:
     dept = _find(departments, department_id)
-    return DepartmentDetailOut(id=dept.id, name=dept.name, description=dept.description, weights=dept.weights)
+    return DepartmentDetailOut(
+        id=dept.id,
+        name=dept.name,
+        description=dept.description,
+        weights=dept.weights,
+        responsibilities=dept.responsibilities,
+        skills=dept.skills,
+    )
 
 
 @router.get("/{department_id}/similar", response_model=list[SimilarDepartmentOut])

@@ -12,11 +12,23 @@ from pathlib import Path
 from app.core.classifier import SEED_QUESTION_IDS
 from app.core.models import Department, Option, Question
 
+# Every department must carry enough content to fill a result page.
+MINIMUM_CONTENT_ENTRIES = 3
+
 
 def load_departments(path: str | Path) -> list[Department]:
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
     return [
-        Department(id=d["id"], name=d["name"], description=d["description"], weights=d["weights"])
+        Department(
+            id=d["id"],
+            name=d["name"],
+            description=d["description"],
+            # .get, not [], so a file missing these fields is reported by
+            # validate_data with a clear message instead of a raw KeyError.
+            responsibilities=list(d.get("responsibilities", [])),
+            skills=list(d.get("skills", [])),
+            weights=d["weights"],
+        )
         for d in raw["departments"]
     ]
 
@@ -60,6 +72,19 @@ def validate_data(
             raise ValueError(f"Department '{dept.id}' is missing weights for traits: {missing}")
         if extra:
             raise ValueError(f"Department '{dept.id}' has weights for unknown traits: {extra}")
+
+        # The explanation shown to a student is these two lists verbatim, so
+        # a department that is short of content produces a thin result page
+        # rather than a crash — fail at startup instead.
+        for field_name, entries in (
+            ("responsibilities", dept.responsibilities),
+            ("skills", dept.skills),
+        ):
+            if len(entries) < MINIMUM_CONTENT_ENTRIES:
+                raise ValueError(
+                    f"Department '{dept.id}' needs at least {MINIMUM_CONTENT_ENTRIES} "
+                    f"{field_name} entries, found {len(entries)}"
+                )
 
     seen_ids: set[str] = set()
     for q in questions:

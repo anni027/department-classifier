@@ -85,6 +85,8 @@ class DepartmentOut(BaseModel):
 
 class DepartmentDetailOut(DepartmentOut):
     weights: dict[str, float]
+    responsibilities: list[str]
+    skills: list[str]
 
 
 class SimilarDepartmentOut(BaseModel):

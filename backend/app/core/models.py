@@ -31,6 +31,12 @@ class Department:
     name: str
     description: str
     weights: dict[str, float]
+    # Real content from the Taqneeq Department Guide, shown verbatim on the
+    # result page. Defaulted so scoring/selection tests need not carry copy
+    # they do not exercise; real data is checked by validate_data(), which
+    # requires at least MINIMUM_CONTENT_ENTRIES of each.
+    responsibilities: list[str] = field(default_factory=list)
+    skills: list[str] = field(default_factory=list)
 
 
 @dataclass
