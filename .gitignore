@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+backend/.env
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/tsconfig.tsbuildinfo
+
+# Graphify (analysis artifacts, not part of the app)
+graphify-out/
+backend/app/core/graphify-out/
+.graphify_python
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1607 @@
+{
+  "version": "1.0",
+  "traits": [
+    "technical_ability",
+    "problem_solving",
+    "visual_creativity",
+    "content_creativity",
+    "communication",
+    "public_speaking",
+    "leadership",
+    "people_skills",
+    "organisation",
+    "execution",
+    "negotiation",
+    "networking",
+    "marketing_sense",
+    "event_energy",
+    "media_skills"
+  ],
+  "scale": [
+    {
+      "value": 1,
+      "label": "Not at all like me"
+    },
+    {
+      "value": 2,
+      "label": "Slightly like me"
+    },
+    {
+      "value": 3,
+      "label": "Somewhat like me"
+    },
+    {
+      "value": 4,
+      "label": "Very much like me"
+    },
+    {
+      "value": 5,
+      "label": "Extremely like me"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "text": "I enjoy figuring out why something is not working and finding a practical solution.",
+      "primary_trait": "problem_solving",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": []
+    },
+    {
+      "id": "q02",
+      "text": "I would enjoy building a website, dashboard, automation or software tool for a real event.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technicals",
+        "technical_events"
+      ]
+    },
+    {
+      "id": "q03",
+      "text": "I naturally notice colours, layouts, typography and visual details.",
+      "primary_trait": "visual_creativity",
+      "secondary_traits": [
+        "media_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "digital_creatives",
+        "in_house_creatives"
+      ]
+    },
+    {
+      "id": "q04",
+      "text": "I enjoy turning an idea into a caption, script, article, announcement or story.",
+      "primary_trait": "content_creativity",
+      "secondary_traits": [
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "social_media_content",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q05",
+      "text": "I am comfortable approaching someone I have never met and starting a conversation.",
+      "primary_trait": "networking",
+      "secondary_traits": [
+        "communication",
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "outreach",
+        "workshops",
+        "artist_guest_management"
+      ]
+    },
+    {
+      "id": "q06",
+      "text": "When a group is confused about what to do, I naturally start organising the next steps.",
+      "primary_trait": "leadership",
+      "secondary_traits": [
+        "organisation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q07",
+      "text": "I like keeping track of schedules, lists, documents, deadlines and small details.",
+      "primary_trait": "organisation",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q08",
+      "text": "I stay calm and useful when plans suddenly change during an event.",
+      "primary_trait": "execution",
+      "secondary_traits": [
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "logistics",
+        "hospitality"
+      ]
+    },
+    {
+      "id": "q09",
+      "text": "I would rather spend an afternoon editing photos/video than managing spreadsheets.",
+      "primary_trait": "media_skills",
+      "secondary_traits": [
+        "visual_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "film_media",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "I enjoy persuading people to support an idea or agree to a proposal.",
+      "primary_trait": "negotiation",
+      "secondary_traits": [
+        "communication",
+        "networking"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "outreach",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "I get energy from making a crowd participate, laugh, play or interact.",
+      "primary_trait": "event_energy",
+      "secondary_traits": [
+        "people_skills",
+        "public_speaking"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "informals",
+        "publicity"
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "I can speak confidently to a group when I need to explain or host something.",
+      "primary_trait": "public_speaking",
+      "secondary_traits": [
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "informals"
+      ]
+    },
+    {
+      "id": "q13",
+      "text": "I pay attention to whether people around me are comfortable, welcomed and supported.",
+      "primary_trait": "people_skills",
+      "secondary_traits": [
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "hospitality",
+        "artist_guest_management"
+      ]
+    },
+    {
+      "id": "q14",
+      "text": "I like thinking about what will make more people notice, join or share an event.",
+      "primary_trait": "marketing_sense",
+      "secondary_traits": [
+        "content_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "marketing",
+        "publicity",
+        "social_media_content"
+      ]
+    },
+    {
+      "id": "q15",
+      "text": "I enjoy physically setting up a space with posters, props, signage, backdrops or decoration.",
+      "primary_trait": "visual_creativity",
+      "secondary_traits": [
+        "execution",
+        "event_energy"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "in_house_creatives",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q16",
+      "text": "I would rather solve a technical challenge than design its promotional material.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technicals",
+        "technical_events",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q17",
+      "text": "I am comfortable coordinating several people, tasks and deadlines at the same time.",
+      "primary_trait": "organisation",
+      "secondary_traits": [
+        "leadership",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics",
+        "artist_guest_management"
+      ]
+    },
+    {
+      "id": "q18",
+      "text": "I enjoy meeting people from different colleges, communities or organisations and building long-term connections.",
+      "primary_trait": "networking",
+      "secondary_traits": [
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "outreach",
+        "workshops"
+      ]
+    },
+    {
+      "id": "q19",
+      "text": "I would enjoy creating an interactive technology exhibit that visitors can physically experience.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "event_energy",
+        "visual_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technical_events",
+        "technicals"
+      ]
+    },
+    {
+      "id": "q20",
+      "text": "I would enjoy writing a social-media campaign with a consistent tone and multiple posts.",
+      "primary_trait": "content_creativity",
+      "secondary_traits": [
+        "marketing_sense"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "social_media_content",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q21",
+      "text": "I am good at noticing what could make a guest, judge or participant feel more comfortable.",
+      "primary_trait": "people_skills",
+      "secondary_traits": [
+        "organisation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "hospitality",
+        "artist_guest_management"
+      ]
+    },
+    {
+      "id": "q22",
+      "text": "I would rather negotiate with a company for a workshop than design the workshop poster.",
+      "primary_trait": "negotiation",
+      "secondary_traits": [
+        "networking",
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "outreach",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q23",
+      "text": "I enjoy taking photos or videos specifically to capture moments and tell a visual story.",
+      "primary_trait": "media_skills",
+      "secondary_traits": [
+        "content_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "film_media",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q24",
+      "text": "I would enjoy planning an offline campus promotion where students physically encounter the fest's branding.",
+      "primary_trait": "marketing_sense",
+      "secondary_traits": [
+        "event_energy",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "publicity",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q25",
+      "text": "I prefer creating a campaign strategy and thinking about audience growth over simply executing instructions.",
+      "primary_trait": "marketing_sense",
+      "secondary_traits": [
+        "leadership",
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "marketing",
+        "publicity"
+      ]
+    },
+    {
+      "id": "q26",
+      "text": "I enjoy writing the exact wording that represents an organisation publicly.",
+      "primary_trait": "content_creativity",
+      "secondary_traits": [
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "social_media_content",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q27",
+      "text": "I would rather be responsible for making sure every required cable, table, device, material or vendor is ready.",
+      "primary_trait": "organisation",
+      "secondary_traits": [
+        "execution",
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "logistics",
+        "technicals"
+      ]
+    },
+    {
+      "id": "q28",
+      "text": "I like working behind the scenes to make an event run smoothly even if nobody notices my work.",
+      "primary_trait": "execution",
+      "secondary_traits": [
+        "organisation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics",
+        "hospitality"
+      ]
+    },
+    {
+      "id": "q29",
+      "text": "I would enjoy coordinating an invited artist or speaker's requirements from first contact until they leave the venue.",
+      "primary_trait": "people_skills",
+      "secondary_traits": [
+        "organisation",
+        "negotiation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "artist_guest_management",
+        "hospitality"
+      ]
+    },
+    {
+      "id": "q30",
+      "text": "I would enjoy being the person who fixes a website or registration system when it fails during the fest.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "problem_solving",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technicals"
+      ]
+    },
+    {
+      "id": "q31",
+      "text": "I would rather prototype a physical/software technology concept than organise a conventional fun activity.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technical_events",
+        "informals"
+      ]
+    },
+    {
+      "id": "q32",
+      "text": "I like brainstorming unusual games, challenges and activities that make people participate.",
+      "primary_trait": "event_energy",
+      "secondary_traits": [
+        "content_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "informals"
+      ]
+    },
+    {
+      "id": "q33",
+      "text": "I can turn a rough visual idea into a polished digital design.",
+      "primary_trait": "visual_creativity",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q34",
+      "text": "I can turn a rough visual idea into a physical installation or venue setup.",
+      "primary_trait": "visual_creativity",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "in_house_creatives"
+      ]
+    },
+    {
+      "id": "q35",
+      "text": "I would rather personally contact colleges and student communities than run paid advertisements.",
+      "primary_trait": "networking",
+      "secondary_traits": [
+        "communication",
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "outreach",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q36",
+      "text": "I enjoy finding organisations or platforms that could collaborate with a college event.",
+      "primary_trait": "networking",
+      "secondary_traits": [
+        "negotiation",
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "outreach"
+      ]
+    },
+    {
+      "id": "q37",
+      "text": "I am comfortable following a detailed plan while also adapting it when something changes.",
+      "primary_trait": "execution",
+      "secondary_traits": [
+        "organisation",
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q38",
+      "text": "I enjoy presenting an idea and getting other people excited enough to participate.",
+      "primary_trait": "public_speaking",
+      "secondary_traits": [
+        "communication",
+        "event_energy"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "informals",
+        "outreach"
+      ]
+    },
+    {
+      "id": "q39",
+      "text": "I would rather analyse why registrations are low and change the campaign than simply distribute more posters.",
+      "primary_trait": "marketing_sense",
+      "secondary_traits": [
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "marketing",
+        "publicity"
+      ]
+    },
+    {
+      "id": "q40",
+      "text": "I enjoy making short-form content that is timely, engaging and suited to a social platform.",
+      "primary_trait": "content_creativity",
+      "secondary_traits": [
+        "media_skills",
+        "marketing_sense"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "social_media_content",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q41",
+      "text": "I am comfortable handling a task where success depends on careful documentation and follow-up.",
+      "primary_trait": "organisation",
+      "secondary_traits": [
+        "communication",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "artist_guest_management"
+      ]
+    },
+    {
+      "id": "q42",
+      "text": "I enjoy solving last-minute attendee problems and finding a way to keep the person satisfied.",
+      "primary_trait": "people_skills",
+      "secondary_traits": [
+        "problem_solving",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "hospitality"
+      ]
+    },
+    {
+      "id": "q43",
+      "text": "I would rather coordinate a venue transformation than coordinate a digital branding campaign.",
+      "primary_trait": "execution",
+      "secondary_traits": [
+        "visual_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "in_house_creatives",
+        "digital_creatives"
+      ]
+    },
+    {
+      "id": "q44",
+      "text": "I enjoy making technical systems reliable, repeatable and easy for others to use.",
+      "primary_trait": "technical_ability",
+      "secondary_traits": [
+        "organisation",
+        "problem_solving"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "technicals"
+      ]
+    },
+    {
+      "id": "q45",
+      "text": "I would enjoy hosting an educational session and coordinating the external partner who delivers it.",
+      "primary_trait": "public_speaking",
+      "secondary_traits": [
+        "negotiation",
+        "networking",
+        "organisation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "artist_guest_management"
+      ]
+    }
+  ],
+  "recommended_question_count": {
+    "minimum": 8,
+    "maximum": 12
+  },
+  "scoring": {
+    "answer_normalization": "value_minus_1_divided_by_4",
+    "initial_trait_score": 0.5,
+    "learning_rate": 0.4,
+    "secondary_trait_learning_multiplier": 0.5,
+    "department_score": "sum(user_trait * department_weight)",
+    "probability": "softmax(department_scores)"
+  }
+}
