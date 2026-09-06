@@ -68,6 +68,8 @@ export interface Department {
 
 export interface DepartmentDetail extends Department {
   weights: Record<string, number>;
+  responsibilities: string[];
+  skills: string[];
 }
 
 export interface SimilarDepartment {

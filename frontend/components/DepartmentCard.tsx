@@ -1,33 +1,49 @@
 import Link from "next/link";
+import { C, FONT, badge, pad } from "@/lib/theme";
 import type { Department } from "@/types/api";
 
-const ICONS: Record<string, string> = {
-  admin: "\u{1F4CB}",
-  artist_guest_management: "\u{1F3A4}",
-  digital_creatives: "\u{1F3A8}",
-  film_media: "\u{1F3A5}",
-  hospitality: "\u{1F373}",
-  informals: "\u{1F3AE}",
-  in_house_creatives: "\u{1F58C}️",
-  logistics: "\u{1F69A}",
-  marketing: "\u{1F4C8}",
-  outreach: "\u{1F91D}",
-  publicity: "\u{1F4E3}",
-  social_media_content: "✍️",
-  technical_events: "⚙️",
-  technicals: "\u{1F4BB}",
-  workshops: "\u{1F393}",
-};
-
-export function DepartmentCard({ department }: { department: Department }) {
+/**
+ * The design numbers each department card rather than using an icon —
+ * the emoji set the old cards used has no place in this treatment.
+ */
+export function DepartmentCard({ department, index }: { department: Department; index: number }) {
   return (
     <Link
       href={`/departments/${department.id}`}
-      className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-taqneeq-violet/60 hover:bg-white/10"
+      className="tq-card-lift"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 12,
+        alignItems: "flex-start",
+        background: C.cream,
+        color: C.ink,
+        border: `3px solid ${C.ink}`,
+        borderRadius: 5,
+        padding: 16,
+        textAlign: "left",
+        boxShadow: "5px 5px 0 rgba(0,0,0,.55)",
+        textDecoration: "none",
+      }}
     >
-      <span className="text-3xl">{ICONS[department.id] ?? "✨"}</span>
-      <h3 className="text-lg font-semibold text-white">{department.name}</h3>
-      <p className="text-sm text-white/60">{department.description}</p>
+      <span style={{ display: "flex", alignItems: "center", gap: 10, width: "100%" }}>
+        <span style={{ ...badge(38, C.cream), boxShadow: `0 0 0 2px ${C.cream}, 0 0 0 4px ${C.purpleDeep}` }}>
+          {pad(index + 1)}
+        </span>
+        <span
+          style={{
+            flex: 1,
+            height: 3,
+            background: `repeating-linear-gradient(90deg,${C.ink} 0 6px,transparent 6px 11px)`,
+          }}
+        />
+      </span>
+      <span style={{ font: `900 17px/1.12 ${FONT.body}`, letterSpacing: "-.01em" }}>
+        {department.name}
+      </span>
+      <span style={{ fontSize: 13, lineHeight: 1.45, color: C.inkMid }}>
+        {department.description}
+      </span>
     </Link>
   );
 }
