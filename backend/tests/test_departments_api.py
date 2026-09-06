@@ -34,10 +34,13 @@ def test_similar_unknown_department_returns_404(client):
     assert resp.status_code == 404
 
 
-def test_health_endpoint(client):
+def test_health_endpoint(client, departments, questions):
+    """Health reports what was actually loaded, so compare against the loaded
+    data rather than a literal that goes stale whenever the bank changes.
+    """
     resp = client.get("/api/v1/health")
     assert resp.status_code == 200
     body = resp.json()
     assert body["status"] == "ok"
-    assert body["departments_loaded"] == 15
-    assert body["questions_loaded"] == 45
+    assert body["departments_loaded"] == len(departments)
+    assert body["questions_loaded"] == len(questions)
