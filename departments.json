@@ -23,6 +23,17 @@
       "id": "admin",
       "name": "Admin",
       "description": "Coordinates documentation, schedules, permissions, budgets and overall planning across Taqneeq.",
+      "responsibilities": [
+        "Manage documentation, schedules, permissions and budgets",
+        "Track progress across every department",
+        "Maintain records through preparation and execution",
+        "Keep coordination running between all teams"
+      ],
+      "skills": [
+        "Organisational planning",
+        "Budget and record keeping",
+        "Cross-team coordination"
+      ],
       "weights": {
         "technical_ability": 0.1,
         "problem_solving": 0.45,
@@ -45,6 +56,17 @@
       "id": "artist_guest_management",
       "name": "Artist & Guest Management",
       "description": "Coordinates invited speakers, judges, performers, influencers and artists from invitation through on-ground support.",
+      "responsibilities": [
+        "Extend invitations to speakers, judges, performers and artists",
+        "Manage communication with invited guests",
+        "Coordinate travel, accommodation and hospitality",
+        "Provide on-ground assistance during the fest"
+      ],
+      "skills": [
+        "Professional communication",
+        "Itinerary and travel coordination",
+        "Guest relations"
+      ],
       "weights": {
         "technical_ability": 0.05,
         "problem_solving": 0.55,
@@ -67,6 +89,16 @@
       "id": "digital_creatives",
       "name": "Digital Creatives",
       "description": "Creates digital branding, social posts, motion graphics, banners, advertisements and website assets.",
+      "responsibilities": [
+        "Design social media posts, banners and advertisements",
+        "Create motion graphics and website assets",
+        "Maintain a consistent digital visual identity"
+      ],
+      "skills": [
+        "Digital design tools",
+        "Motion graphics",
+        "Brand consistency"
+      ],
       "weights": {
         "technical_ability": 0.25,
         "problem_solving": 0.35,
@@ -89,6 +121,16 @@
       "id": "film_media",
       "name": "Film & Media",
       "description": "Photographs, films and edits the festival to document events, promotions and behind-the-scenes moments.",
+      "responsibilities": [
+        "Photograph and film events, competitions and behind-the-scenes moments",
+        "Edit visual content for release",
+        "Curate photos and videos for social media and promotion"
+      ],
+      "skills": [
+        "Photography and videography",
+        "Video editing",
+        "Visual storytelling"
+      ],
       "weights": {
         "technical_ability": 0.3,
         "problem_solving": 0.4,
@@ -111,6 +153,16 @@
       "id": "hospitality",
       "name": "Hospitality",
       "description": "Ensures participants, guests, judges, sponsors and volunteers have a comfortable and welcoming experience.",
+      "responsibilities": [
+        "Manage registrations and help desks",
+        "Arrange refreshments and accommodation support",
+        "Assist participants, guests, judges and sponsors on the ground"
+      ],
+      "skills": [
+        "Attendee care",
+        "Front-desk operations",
+        "Composure under pressure"
+      ],
       "weights": {
         "technical_ability": 0.05,
         "problem_solving": 0.55,
@@ -133,6 +185,16 @@
       "id": "informals",
       "name": "Informals",
       "description": "Creates games, interactive activities and audience-engagement experiences that add energy to the festival.",
+      "responsibilities": [
+        "Design games and interactive activities",
+        "Run audience engagement sessions",
+        "Create informal events alongside the main competitions"
+      ],
+      "skills": [
+        "Activity design",
+        "Crowd engagement",
+        "Improvisation"
+      ],
       "weights": {
         "technical_ability": 0.1,
         "problem_solving": 0.45,
@@ -155,6 +217,16 @@
       "id": "in_house_creatives",
       "name": "In-house Creatives",
       "description": "Designs physical branding, stage backdrops, standees, posters, props, decoration and venue signage.",
+      "responsibilities": [
+        "Design stage backdrops, standees, posters and props",
+        "Plan venue decoration and signage",
+        "Build physical installations across campus"
+      ],
+      "skills": [
+        "Physical fabrication",
+        "Spatial and set design",
+        "Hands-on execution"
+      ],
       "weights": {
         "technical_ability": 0.15,
         "problem_solving": 0.45,
@@ -177,6 +249,16 @@
       "id": "logistics",
       "name": "Logistics",
       "description": "Plans, procures and manages venues, transportation, equipment, inventory, vendors and resources.",
+      "responsibilities": [
+        "Plan venue setups and equipment requirements",
+        "Arrange transportation and manage inventory",
+        "Coordinate vendors and allocate resources"
+      ],
+      "skills": [
+        "Procurement and vendor handling",
+        "Inventory management",
+        "Operational planning"
+      ],
       "weights": {
         "technical_ability": 0.2,
         "problem_solving": 0.85,
@@ -199,6 +281,16 @@
       "id": "marketing",
       "name": "Marketing",
       "description": "Builds strategies and campaigns to increase reach, registrations, brand visibility and engagement.",
+      "responsibilities": [
+        "Build promotional campaigns that drive registrations",
+        "Run market research and audience analysis",
+        "Plan collaborations that extend the festival's reach"
+      ],
+      "skills": [
+        "Campaign strategy",
+        "Audience research",
+        "Brand positioning"
+      ],
       "weights": {
         "technical_ability": 0.1,
         "problem_solving": 0.5,
@@ -221,6 +313,16 @@
       "id": "outreach",
       "name": "Outreach",
       "description": "Builds relationships with colleges, student communities, organisations and external partners to expand participation.",
+      "responsibilities": [
+        "Build relationships with colleges and student communities",
+        "Establish collaborations with external organisations",
+        "Promote the festival to students at other institutions"
+      ],
+      "skills": [
+        "Relationship building",
+        "Community outreach",
+        "Persuasive communication"
+      ],
       "weights": {
         "technical_ability": 0.05,
         "problem_solving": 0.35,
@@ -243,6 +345,16 @@
       "id": "publicity",
       "name": "Publicity",
       "description": "Drives offline visibility through publicity drives, posters, banners, campus promotions and creative campaigns.",
+      "responsibilities": [
+        "Organise publicity drives and campus promotions",
+        "Manage poster and banner placement",
+        "Execute offline campaigns that build awareness"
+      ],
+      "skills": [
+        "On-ground promotion",
+        "Campaign execution",
+        "Public engagement"
+      ],
       "weights": {
         "technical_ability": 0.05,
         "problem_solving": 0.3,
@@ -265,6 +377,16 @@
       "id": "social_media_content",
       "name": "Social Media & Content Writing",
       "description": "Creates captions, scripts, blogs, announcements and social campaigns while maintaining Taqneeq's online voice.",
+      "responsibilities": [
+        "Write captions, scripts, blogs and announcements",
+        "Run social media campaigns across platforms",
+        "Maintain a consistent voice for the festival online"
+      ],
+      "skills": [
+        "Copywriting",
+        "Social media strategy",
+        "Editorial judgement"
+      ],
       "weights": {
         "technical_ability": 0.1,
         "problem_solving": 0.3,
@@ -287,6 +409,16 @@
       "id": "technical_events",
       "name": "Technical Events",
       "description": "Conceptualises and builds hardware/software exhibits, interactive installations and technology showcases.",
+      "responsibilities": [
+        "Conceptualise hardware and software exhibits",
+        "Build interactive installations and demonstrations",
+        "Run hands-on technical showcases for visitors"
+      ],
+      "skills": [
+        "Prototyping",
+        "Hardware and software integration",
+        "Technical demonstration"
+      ],
       "weights": {
         "technical_ability": 1.0,
         "problem_solving": 0.95,
@@ -309,6 +441,16 @@
       "id": "technicals",
       "name": "Technicals",
       "description": "Builds and maintains websites, registration portals, automation, dashboards, databases and technical infrastructure.",
+      "responsibilities": [
+        "Build and maintain the website and registration portal",
+        "Develop automation, dashboards and databases",
+        "Provide technical support across the festival"
+      ],
+      "skills": [
+        "Web development",
+        "Systems and database work",
+        "Debugging and support"
+      ],
       "weights": {
         "technical_ability": 1.0,
         "problem_solving": 0.95,
@@ -331,6 +473,17 @@
       "id": "workshops",
       "name": "Workshops",
       "description": "Builds educational collaborations, negotiates partnerships and organises workshops and seminars.",
+      "responsibilities": [
+        "Identify and approach partners such as TEDx and Under 25",
+        "Negotiate and finalise collaboration deals",
+        "Manage collaborations on the day of the fest",
+        "Organise and host internal workshops and seminars"
+      ],
+      "skills": [
+        "Partnership negotiation",
+        "Deal closing",
+        "Session hosting"
+      ],
       "weights": {
         "technical_ability": 0.15,
         "problem_solving": 0.45,
