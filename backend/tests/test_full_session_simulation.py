@@ -2,13 +2,13 @@ import random
 
 import pytest
 
-from app.core.classifier import simulate_session
+from app.core.classifier import MAXIMUM_QUESTIONS, MINIMUM_QUESTIONS, simulate_session
 
 
 def test_full_session_terminates_within_bounds_with_valid_department(departments, questions):
     state, probabilities = simulate_session(departments, questions, lambda _q: 5, random.Random(7))
 
-    assert 8 <= len(state.questions_asked) <= 12
+    assert MINIMUM_QUESTIONS <= len(state.questions_asked) <= MAXIMUM_QUESTIONS
     dept_ids = {d.id for d in departments}
     top_dept_id = max(probabilities, key=probabilities.get)
     assert top_dept_id in dept_ids
@@ -22,4 +22,4 @@ def test_full_session_never_repeats_a_question(departments, questions):
 
 def test_full_session_hits_max_when_answers_stay_ambiguous(departments, questions):
     state, _ = simulate_session(departments, questions, lambda _q: 3, random.Random(99))
-    assert len(state.questions_asked) <= 12
+    assert len(state.questions_asked) == MAXIMUM_QUESTIONS

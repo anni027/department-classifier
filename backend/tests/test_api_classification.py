@@ -1,5 +1,7 @@
 import uuid
 
+from app.core.classifier import MAXIMUM_QUESTIONS
+
 
 def _start(client):
     resp = client.post("/api/v1/classification/start")
@@ -7,11 +9,35 @@ def _start(client):
     return resp.json()
 
 
+def _play_session(client) -> list[str]:
+    """Answer a whole session and return the question ids in served order.
+
+    Answers vary with position so the trait vector actually moves, but are a
+    pure function of position, so two runs feed identical input.
+    """
+    start = _start(client)
+    session_id = start["session_id"]
+    question_id = start["question"]["id"]
+    served = [question_id]
+
+    for index in range(30):
+        body = client.post(
+            "/api/v1/classification/answer",
+            json={"session_id": session_id, "question_id": question_id, "response": 1 + index % 5},
+        ).json()
+        if body["completed"]:
+            return served
+        question_id = body["question"]["id"]
+        served.append(question_id)
+
+    raise AssertionError("session never completed within 30 answers")
+
+
 def test_start_returns_seed_question_q01(client):
     body = _start(client)
     assert body["question"]["id"] == "q01"
     assert body["question_number"] == 1
-    assert body["total_max_questions"] == 12
+    assert body["total_max_questions"] == MAXIMUM_QUESTIONS
     uuid.UUID(body["session_id"])  # valid UUID
 
 
@@ -61,7 +87,7 @@ def test_full_flow_reaches_completed_result(client):
     session_id = start["session_id"]
     question_id = start["question"]["id"]
 
-    for _ in range(30):  # generous upper bound; real cap is 12
+    for _ in range(30):  # generous upper bound; real cap is MAXIMUM_QUESTIONS
         resp = client.post(
             "/api/v1/classification/answer",
             json={"session_id": session_id, "question_id": question_id, "response": 4},
@@ -131,3 +157,20 @@ def test_status_endpoint_tracks_progress(client):
 def test_status_unknown_session_returns_404(client):
     resp = client.get(f"/api/v1/classification/status/{uuid.uuid4()}")
     assert resp.status_code == 404
+
+
+def test_same_session_id_replays_the_same_question_sequence(client, monkeypatch):
+    """A session is reproducible: same id + same answers -> same questions.
+
+    The tie-break jitter is seeded from the session id, so replaying a
+    student's session reproduces exactly what they were asked. Pinning
+    uuid4 makes both runs share an id; the second `create` replaces the
+    first record, so each run starts clean.
+    """
+    monkeypatch.setattr(uuid, "uuid4", lambda: uuid.UUID(int=0xC0FFEE))
+
+    first = _play_session(client)
+    second = _play_session(client)
+
+    assert first == second
+    assert len(first) > 4  # got past the four seed questions, so jitter was in play
