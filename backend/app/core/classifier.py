@@ -7,18 +7,27 @@ returns plain data out so it can be unit tested directly.
 from __future__ import annotations
 
 import random
-import re
 
 from app.core.models import ClassifierState, Department, Question
-from app.core.scoring import department_score, softmax, update_trait_scores
+from app.core.scoring import TEMPERATURE, compute_trait_scores, department_affinity, softmax
 
 # Explicit, named seed-question designation — looked up by id, never derived
 # from whatever position questions.json happens to list them in. See
 # CLASSIFIER_SPEC.md section 13 ("the first four questions" = these four).
 SEED_QUESTION_IDS: list[str] = ["q01", "q02", "q03", "q04"]
 
-MINIMUM_QUESTIONS = 8
-MAXIMUM_QUESTIONS = 12
+# Raised from 8/12. Measured against students whose answers mirror a
+# department's own weight vector: the old budget placed 73% of them in the
+# right department, because the softmax crosses STOP_TOP_PROBABILITY while
+# most traits are still sitting at the 0.5 prior. Confidence rises faster
+# than evidence does, so the quiz has to be told to keep asking.
+#
+# 15 is a product ceiling, not a measured optimum — beyond it students
+# disengage. Accuracy would keep climbing with more questions (see
+# CLASSIFIER_SPEC.md), so within this cap the way to improve results is a
+# better-targeted question bank, not a longer quiz.
+MINIMUM_QUESTIONS = 14
+MAXIMUM_QUESTIONS = 15
 STOP_TOP_PROBABILITY = 0.65
 STOP_PROBABILITY_GAP = 0.15
 
@@ -71,19 +80,28 @@ def mark_question_served(state: ClassifierState, question: Question) -> Classifi
     )
 
 
-def record_answer(state: ClassifierState, question: Question, answer_value: int) -> ClassifierState:
-    """Return a NEW ClassifierState with the answer recorded and traits updated.
+def record_answer(
+    state: ClassifierState,
+    question: Question,
+    answer_value: int,
+    questions_by_id: dict[str, Question],
+    traits: list[str],
+) -> ClassifierState:
+    """Return a NEW ClassifierState with the answer recorded and traits rebuilt.
+
+    `responses` is the source of truth: the trait vector is recomputed from
+    the whole history rather than nudged from the previous one, so the
+    result cannot depend on the order the answers arrived in. That makes
+    `trait_scores` a derived cache — of the state and of the `sessions`
+    table column alike — which is why it can be recomputed here for free.
 
     Does not mutate `state`. Caller (API/DB layer) is responsible for
     persisting the returned state.
     """
-    new_traits = update_trait_scores(
-        state.trait_scores, question.primary_trait, question.secondary_traits, answer_value
-    )
     new_responses = dict(state.responses)
     new_responses[question.id] = answer_value
     return ClassifierState(
-        trait_scores=new_traits,
+        trait_scores=compute_trait_scores(new_responses, questions_by_id, traits),
         questions_asked=list(state.questions_asked),
         responses=new_responses,
     )
@@ -92,8 +110,8 @@ def record_answer(state: ClassifierState, question: Question, answer_value: int)
 def calculate_probabilities(
     trait_scores: dict[str, float], departments: list[Department]
 ) -> dict[str, float]:
-    scores = {dept.id: department_score(trait_scores, dept) for dept in departments}
-    return softmax(scores)
+    scores = {dept.id: department_affinity(trait_scores, dept) for dept in departments}
+    return softmax(scores, temperature=TEMPERATURE)
 
 
 def top_two_departments(probabilities: dict[str, float]) -> tuple[str, str]:
@@ -155,15 +173,6 @@ def top_traits(trait_scores: dict[str, float], count: int = 3) -> list[tuple[str
     return sorted(trait_scores.items(), key=lambda item: item[1], reverse=True)[:count]
 
 
-_CLAUSE_SPLIT_RE = re.compile(r",| and ")
-
-
-def _split_description_clauses(description: str) -> list[str]:
-    text = description.rstrip(".")
-    clauses = [clause.strip() for clause in _CLAUSE_SPLIT_RE.split(text)]
-    return [clause[0].upper() + clause[1:] for clause in clauses if clause]
-
-
 def simulate_session(
     departments: list[Department],
     questions: list[Question],
@@ -179,12 +188,13 @@ def simulate_session(
     rng = rng or random.Random()
     departments_by_id = {d.id: d for d in departments}
     questions_by_id = {q.id: q for q in questions}
+    traits = list(departments[0].weights)
 
-    state = ClassifierState(trait_scores={t: 0.5 for t in departments[0].weights})
+    state = ClassifierState(trait_scores={t: 0.5 for t in traits})
 
     for question in get_seed_questions(questions):
         state = mark_question_served(state, question)
-        state = record_answer(state, question, answer_fn(question))
+        state = record_answer(state, question, answer_fn(question), questions_by_id, traits)
 
     probabilities = calculate_probabilities(state.trait_scores, departments)
 
@@ -194,7 +204,7 @@ def simulate_session(
         top2 = top_two_departments(probabilities)
         next_question = select_next_question(unanswered, asked_primary_traits, top2, departments_by_id, rng)
         state = mark_question_served(state, next_question)
-        state = record_answer(state, next_question, answer_fn(next_question))
+        state = record_answer(state, next_question, answer_fn(next_question), questions_by_id, traits)
         probabilities = calculate_probabilities(state.trait_scores, departments)
 
     return state, probabilities
@@ -203,26 +213,25 @@ def simulate_session(
 def build_explanation(
     recommended: Department,
     trait_scores: dict[str, float],
-    clause_count: int = 3,
-    skill_count: int = 3,
+    trait_count: int = 3,
 ) -> dict[str, list[str]]:
-    """Deterministic explanation built only from `description` + trait scores.
+    """Deterministic explanation from the department's own content.
 
-    departments.json has no responsibilities/skills fields, so "what you'll
-    do" comes from clause-splitting `description`, and "skills gained" comes
-    from the traits most relevant to this department (score * weight),
-    labelled via the static TRAIT_LABELS map.
+    "What you'll do" and "skills gained" are the department's real
+    responsibilities and skills from the Taqneeq Department Guide, returned
+    verbatim — nothing is derived, paraphrased or invented. Only
+    `strongest_traits` depends on the student: the traits this department
+    weights most heavily among those the student actually scored well on
+    (score * weight), labelled via the static TRAIT_LABELS map.
     """
-    what_youll_do = _split_description_clauses(recommended.description)[:clause_count]
-
     relevance_ranked = sorted(
         recommended.weights.keys(),
         key=lambda trait: trait_scores[trait] * recommended.weights[trait],
         reverse=True,
-    )[:skill_count]
+    )[:trait_count]
 
     return {
-        "what_youll_do": what_youll_do,
-        "skills_gained": [TRAIT_LABELS[trait] for trait in relevance_ranked],
+        "what_youll_do": list(recommended.responsibilities),
+        "skills_gained": list(recommended.skills),
         "strongest_traits": relevance_ranked,
     }

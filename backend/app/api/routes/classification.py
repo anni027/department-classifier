@@ -1,3 +1,4 @@
+import random
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -75,6 +76,7 @@ def submit_answer(
     body: AnswerRequest,
     departments: list[Department] = Depends(get_departments),
     questions: list[Question] = Depends(get_questions),
+    traits: list[str] = Depends(get_traits),
     repo: SessionRepository = Depends(get_repository),
 ) -> AnswerResponse:
     record = _get_record_or_404(repo, body.session_id)
@@ -94,7 +96,7 @@ def submit_answer(
         questions_asked=record.questions_asked,
         responses=record.responses,
     )
-    state = record_answer(state, question, body.response)
+    state = record_answer(state, question, body.response, questions_by_id, traits)
     probabilities = calculate_probabilities(state.trait_scores, departments)
     questions_answered = len(state.responses)
 
@@ -135,7 +137,15 @@ def submit_answer(
     unanswered = [q for q in questions if q.id not in state.questions_asked]
     asked_primary_traits = {questions_by_id[qid].primary_trait for qid in state.questions_asked}
     top2_ids = top_two_departments(probabilities)
-    next_question = select_next_question(unanswered, asked_primary_traits, top2_ids, departments_by_id)
+    # Seed the tie-break jitter from the session id, not the clock: the same
+    # session then always asks the same questions, so a student reporting a
+    # strange result can have it replayed exactly. Re-derived per request
+    # rather than held in memory, so it survives restarts and any worker
+    # handling the request.
+    rng = random.Random(record.id.int)
+    next_question = select_next_question(
+        unanswered, asked_primary_traits, top2_ids, departments_by_id, rng
+    )
     state = mark_question_served(state, next_question)
 
     repo.update(

@@ -18,10 +18,9 @@ PERSONAS: dict[str, dict[str, list[str]]] = {
     # left unlisted stay neutral (answer=3). A persona that is only "high on
     # 2 traits, neutral on everything else" is unrealistic: a real student
     # who is not a people-person also rates communication/leadership-heavy
-    # questions LOW, not neutral - and department_score is an unnormalized
-    # sum over all 15 traits, so an unrealistically neutral persona ends up
-    # implicitly favoring departments with high weight on many traits (see
-    # CLASSIFIER_SPEC.md's own no-normalization rule) regardless of fit.
+    # questions LOW, not neutral - and department_affinity compares centred
+    # profiles, so a persona with almost no spread between its traits gives
+    # the classifier very little shape to match on.
     "Technical Builder": {
         "high": ["technical_ability", "problem_solving", "execution"],
         "low": ["public_speaking", "negotiation", "people_skills", "leadership", "marketing_sense", "networking"],
