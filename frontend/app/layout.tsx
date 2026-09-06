@@ -10,7 +10,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="antialiased">
-        <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">{children}</div>
+        {/* Halftone grain sits above the gradient, below the content. */}
+        <div className="tq-grain" aria-hidden="true" />
+        <div className="tq-page" style={{ paddingBottom: 72 }}>
+          {children}
+        </div>
       </body>
     </html>
   );

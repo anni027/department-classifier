@@ -2,8 +2,269 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Matchbox-label theme, ported from the Claude Design source
+   ("Taqneeq Classifier.dc.html"). Colours, shadows and offsets are the
+   design's values verbatim; only the data behind them is real. */
+
+:root {
+  --tq-bg: #150528;
+  --tq-panel: #0f0421;
+  --tq-purple-deep: #360d5d;
+  --tq-purple: #7a2cc1;
+  --tq-yellow: #fec400;
+  --tq-red: #c1272d;
+  --tq-cream: #f3e7d0;
+  --tq-cream-dark: #e8d8b8;
+  --tq-ink: #150528;
+  --tq-text: #e3d6f2;
+  --tq-lilac: #c9a6f5;
+  --tq-muted: #8c6bc0;
+  --tq-ink-soft: #6b4b95;
+  --tq-ink-mid: #3a2158;
+
+  --tq-display: "Arial Black", "Arial Bold", Impact, sans-serif;
+  --tq-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --tq-mono: ui-monospace, "Courier New", monospace;
+}
+
+html,
 body {
-  background: radial-gradient(circle at top, #1b1230 0%, #0f0b1e 55%, #070512 100%);
-  color: #f3f1fb;
+  margin: 0;
+  padding: 0;
+  background: var(--tq-bg);
+}
+
+body {
   min-height: 100vh;
+  font-family: var(--tq-body);
+  color: var(--tq-cream);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(122, 44, 193, 0.45), transparent 55%),
+    radial-gradient(circle at 82% 78%, rgba(193, 39, 45, 0.22), transparent 60%),
+    var(--tq-bg);
+  background-attachment: fixed;
+}
+
+a {
+  color: var(--tq-yellow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(254, 196, 0, 0.45);
+}
+a:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+button {
+  font: inherit;
+}
+
+/* Halftone grain over the whole page. */
+.tq-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.5px, transparent 0.6px);
+  background-size: 4px 4px;
+}
+
+.tq-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Display type: yellow, uppercase, hard double drop shadow ---- */
+.tq-rule {
+  height: 9px;
+  background: var(--tq-yellow);
+  border-radius: 2px;
+}
+.tq-display {
+  margin: 0;
+  padding-top: 6px;
+  font-family: var(--tq-display);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--tq-yellow);
+  text-shadow: 5px 5px 0 var(--tq-purple-deep), 9px 9px 0 rgba(193, 39, 45, 0.75);
+}
+.tq-display-md {
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  text-shadow: 4px 4px 0 var(--tq-purple-deep), 7px 7px 0 rgba(193, 39, 45, 0.7);
+}
+.tq-display-sm {
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-shadow: 3px 3px 0 var(--tq-purple-deep), 6px 6px 0 rgba(193, 39, 45, 0.7);
+}
+
+.tq-label {
+  font-family: var(--tq-mono);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.tq-label-sm {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+/* ---- Buttons ---- */
+.tq-btn-primary {
+  font-family: var(--tq-display);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: var(--tq-yellow);
+  color: var(--tq-ink);
+  border: 3px solid var(--tq-ink);
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 6px 6px 0 var(--tq-red);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.tq-btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 9px 9px 0 var(--tq-red);
+}
+.tq-btn-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--tq-red);
+}
+
+.tq-btn-ghost {
+  background: none;
+  border: 2px solid rgba(243, 231, 208, 0.32);
+  border-radius: 3px;
+  color: var(--tq-text);
+  font-family: var(--tq-mono);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.tq-btn-ghost:hover {
+  border-color: var(--tq-yellow);
+  color: var(--tq-yellow);
+}
+
+.tq-link-quiet {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(254, 196, 0, 0.5);
+  color: var(--tq-yellow);
+  font-size: 14px;
+  padding: 2px 0;
+  cursor: pointer;
+}
+.tq-link-quiet:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.tq-back {
+  background: none;
+  border: 0;
+  color: var(--tq-lilac);
+  font-family: var(--tq-mono);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  padding: 0;
+  cursor: pointer;
+}
+.tq-back:hover {
+  color: var(--tq-yellow);
+}
+
+/* ---- Cards that lift on hover ---- */
+.tq-lift {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.tq-lift:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #150528;
+}
+.tq-lift:focus-visible {
+  outline: 3px solid var(--tq-red);
+  outline-offset: 3px;
+}
+
+.tq-card-lift {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.tq-card-lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--tq-red);
+}
+.tq-card-lift:focus-visible {
+  outline: 3px solid var(--tq-yellow);
+  outline-offset: 3px;
+}
+
+.tq-rank-lift {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.tq-rank-lift:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+.tq-rank-lift:focus-visible {
+  outline: 3px solid var(--tq-yellow);
+  outline-offset: 3px;
+}
+
+.tq-similar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(254, 196, 0, 0.3);
+  color: var(--tq-yellow);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.3;
+  padding: 8px 0;
+  cursor: pointer;
+  text-align: left;
+}
+.tq-similar:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+@keyframes tq-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.tq-in {
+  animation: tq-in 0.32s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
