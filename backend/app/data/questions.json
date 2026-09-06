@@ -69,7 +69,10 @@
           "label": "Extremely like me"
         }
       ],
-      "distinguishes": []
+      "distinguishes": [
+        "technicals",
+        "logistics"
+      ]
     },
     {
       "id": "q02",
@@ -551,7 +554,8 @@
       ],
       "distinguishes": [
         "in_house_creatives",
-        "logistics"
+        "logistics",
+        "digital_creatives"
       ]
     },
     {
@@ -899,7 +903,8 @@
       ],
       "distinguishes": [
         "marketing",
-        "publicity"
+        "publicity",
+        "social_media_content"
       ]
     },
     {
@@ -968,7 +973,8 @@
       ],
       "distinguishes": [
         "logistics",
-        "technicals"
+        "technicals",
+        "admin"
       ]
     },
     {
@@ -1072,7 +1078,8 @@
         }
       ],
       "distinguishes": [
-        "technicals"
+        "technicals",
+        "technical_events"
       ]
     },
     {
@@ -1106,7 +1113,8 @@
       ],
       "distinguishes": [
         "technical_events",
-        "informals"
+        "informals",
+        "technicals"
       ]
     },
     {
@@ -1139,7 +1147,8 @@
         }
       ],
       "distinguishes": [
-        "informals"
+        "informals",
+        "publicity"
       ]
     },
     {
@@ -1172,7 +1181,8 @@
         }
       ],
       "distinguishes": [
-        "digital_creatives"
+        "digital_creatives",
+        "in_house_creatives"
       ]
     },
     {
@@ -1205,7 +1215,8 @@
         }
       ],
       "distinguishes": [
-        "in_house_creatives"
+        "in_house_creatives",
+        "digital_creatives"
       ]
     },
     {
@@ -1240,7 +1251,8 @@
       ],
       "distinguishes": [
         "outreach",
-        "marketing"
+        "marketing",
+        "workshops"
       ]
     },
     {
@@ -1415,7 +1427,8 @@
       ],
       "distinguishes": [
         "social_media_content",
-        "digital_creatives"
+        "digital_creatives",
+        "marketing"
       ]
     },
     {
@@ -1450,7 +1463,8 @@
       ],
       "distinguishes": [
         "admin",
-        "artist_guest_management"
+        "artist_guest_management",
+        "logistics"
       ]
     },
     {
@@ -1484,7 +1498,8 @@
         }
       ],
       "distinguishes": [
-        "hospitality"
+        "hospitality",
+        "artist_guest_management"
       ]
     },
     {
@@ -1552,7 +1567,8 @@
         }
       ],
       "distinguishes": [
-        "technicals"
+        "technicals",
+        "technical_events"
       ]
     },
     {
@@ -1588,20 +1604,364 @@
       ],
       "distinguishes": [
         "workshops",
-        "artist_guest_management"
+        "artist_guest_management",
+        "outreach"
+      ]
+    },
+    {
+      "id": "q46",
+      "text": "I can explain a plan clearly to someone who has not been involved in it.",
+      "primary_trait": "communication",
+      "secondary_traits": [
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "outreach"
+      ]
+    },
+    {
+      "id": "q47",
+      "text": "I am comfortable writing a message on behalf of a team that has to sound professional.",
+      "primary_trait": "communication",
+      "secondary_traits": [
+        "content_creativity"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "social_media_content",
+        "admin"
+      ]
+    },
+    {
+      "id": "q48",
+      "text": "I would rather be the person who keeps everyone updated than the person who works quietly on their own.",
+      "primary_trait": "communication",
+      "secondary_traits": [
+        "negotiation",
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "artist_guest_management",
+        "hospitality"
+      ]
+    },
+    {
+      "id": "q49",
+      "text": "When something goes wrong at short notice, I would rather find a workaround than wait for instructions.",
+      "primary_trait": "problem_solving",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "logistics",
+        "technicals"
+      ]
+    },
+    {
+      "id": "q50",
+      "text": "I enjoy breaking a large, messy task into a clear order of smaller steps.",
+      "primary_trait": "problem_solving",
+      "secondary_traits": [
+        "organisation"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q51",
+      "text": "I am comfortable being the person held responsible when a team's work is judged.",
+      "primary_trait": "leadership",
+      "secondary_traits": [
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "marketing"
+      ]
+    },
+    {
+      "id": "q52",
+      "text": "I would rather delegate tasks and follow up on them than take on all the work myself.",
+      "primary_trait": "leadership",
+      "secondary_traits": [
+        "communication",
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "admin",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q53",
+      "text": "I am comfortable asking someone for a better price, a favour or a firm commitment.",
+      "primary_trait": "negotiation",
+      "secondary_traits": [
+        "communication"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "workshops",
+        "logistics"
+      ]
+    },
+    {
+      "id": "q54",
+      "text": "I enjoy keeping the energy up in a room when people's attention starts to drop.",
+      "primary_trait": "event_energy",
+      "secondary_traits": [
+        "people_skills"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "informals",
+        "publicity"
+      ]
+    },
+    {
+      "id": "q55",
+      "text": "I would enjoy being responsible for capturing an event as it happens, rather than editing it afterwards.",
+      "primary_trait": "media_skills",
+      "secondary_traits": [
+        "execution"
+      ],
+      "options": [
+        {
+          "value": 1,
+          "label": "Not at all like me"
+        },
+        {
+          "value": 2,
+          "label": "Slightly like me"
+        },
+        {
+          "value": 3,
+          "label": "Somewhat like me"
+        },
+        {
+          "value": 4,
+          "label": "Very much like me"
+        },
+        {
+          "value": 5,
+          "label": "Extremely like me"
+        }
+      ],
+      "distinguishes": [
+        "film_media",
+        "digital_creatives"
       ]
     }
   ],
   "recommended_question_count": {
-    "minimum": 8,
-    "maximum": 12
+    "minimum": 14,
+    "maximum": 15
   },
   "scoring": {
     "answer_normalization": "value_minus_1_divided_by_4",
-    "initial_trait_score": 0.5,
-    "learning_rate": 0.4,
-    "secondary_trait_learning_multiplier": 0.5,
-    "department_score": "sum(user_trait * department_weight)",
-    "probability": "softmax(department_scores)"
+    "trait_prior": 0.5,
+    "trait_prior_weight": 0.6,
+    "secondary_trait_weight": 0.5,
+    "trait_score": "weighted_mean(prior at 0.6, answers at 1.0 primary / 0.5 secondary)",
+    "department_score": "cosine(mean_centred(user_traits), mean_centred(department_weights))",
+    "probability": "softmax(department_scores, temperature=0.05)"
   }
 }
