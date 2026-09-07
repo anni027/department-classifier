@@ -22,3 +22,6 @@ Thumbs.db
 
 # Local working docs (not part of the app)
 docs/
+
+# Production secrets
+.env.production

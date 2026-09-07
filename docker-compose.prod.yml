@@ -1,0 +1,69 @@
+# Production stack for a single Lightsail instance.
+#
+# Caddy terminates TLS and puts both services on ONE origin:
+#   https://DOMAIN/          -> frontend
+#   https://DOMAIN/api/v1/*  -> backend
+# Same-origin means the browser makes no cross-origin requests at all.
+#
+# Local dev still uses docker-compose.yml (Postgres only) — this file is not
+# a substitute for it.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-taqneeq}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+      POSTGRES_DB: ${POSTGRES_DB:-taqneeq}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taqneeq}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # Not published to the host: only the backend needs to reach it.
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-taqneeq}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-taqneeq}
+      CORS_ORIGINS: https://${DOMAIN:?DOMAIN must be set}
+      DATA_DIR: app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Baked into the JS bundle at build time — see frontend/Dockerfile.
+        NEXT_PUBLIC_API_BASE_URL: https://${DOMAIN}/api/v1
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data      # issued certificates — losing this re-requests them
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
