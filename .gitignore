@@ -2,13 +2,11 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-backend/.env
 backend/.venv/
 
 # Node / Next.js
 frontend/node_modules/
 frontend/.next/
-frontend/.env.local
 frontend/tsconfig.tsbuildinfo
 
 # Graphify (analysis artifacts, not part of the app)
@@ -23,5 +21,7 @@ Thumbs.db
 # Local working docs (not part of the app)
 docs/
 
-# Production secrets
-.env.production
+# Secrets — glob, so a stray .env.staging or root .env is covered too
+.env
+.env.*
+!.env*.example

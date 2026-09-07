@@ -74,7 +74,7 @@ cd "Taqneeq Dept Classifier 19.0"
 docker compose up -d          # starts Postgres on localhost:5434
 cd backend
 python -m venv .venv && .venv\Scripts\activate   # (or source .venv/bin/activate on macOS/Linux)
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # runtime deps + pytest/httpx
 cd ../frontend
 npm install
 ```
@@ -122,7 +122,7 @@ App: http://localhost:3000
 
 ```bash
 cd backend
-pytest                          # 54 tests: scoring, seed order, adaptive
+pytest                          # 92 tests: scoring, seed order, adaptive
                                  # selection, stopping rule, full-session
                                  # simulation, data integrity, API contract
 python -m scripts.personas      # synthetic-persona sanity check (prints
