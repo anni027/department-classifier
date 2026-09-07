@@ -6,9 +6,15 @@ services:
       POSTGRES_PASSWORD: taqneeq
       POSTGRES_DB: taqneeq
     ports:
+      # Bound to 127.0.0.1 on purpose. Docker publishes ports via iptables
+      # NAT, which BYPASSES the host and Lightsail firewalls — a bare
+      # `docker compose up` on the server (this file is the default, not the
+      # prod one) would otherwise expose Postgres, with the password below,
+      # to the internet. Production is started only via ./deploy.sh.
+      #
       # Host port 5434, not 5432 - avoids clashing with a locally installed
       # Postgres service. Change freely; just keep DATABASE_URL in sync.
-      - "5434:5432"
+      - "127.0.0.1:5434:5432"
     volumes:
       - taqneeq_pgdata:/var/lib/postgresql/data
     healthcheck:
