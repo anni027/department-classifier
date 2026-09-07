@@ -29,7 +29,9 @@ class StartResponse(BaseModel):
 
 class AnswerRequest(BaseModel):
     session_id: UUID
-    question_id: str
+    # Bounded so an oversized id cannot be reflected into an error body or
+    # the access log. session_id is already validated by being a UUID.
+    question_id: str = Field(max_length=64)
     response: int = Field(ge=1, le=5)
 
 

@@ -1,6 +1,6 @@
 import math
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Path
 
 from app.api.deps import get_departments
 from app.api.schemas import DepartmentDetailOut, DepartmentOut, SimilarDepartmentOut
@@ -15,7 +15,9 @@ def _find(departments: list[Department], department_id: str) -> Department:
     for dept in departments:
         if dept.id == department_id:
             return dept
-    raise HTTPException(status_code=404, detail=f"Unknown department id: {department_id}")
+    # Deliberately does not echo the id back: it is unbounded
+    # attacker-controlled input that would land in the access logs.
+    raise HTTPException(status_code=404, detail="Unknown department id")
 
 
 def _cosine_similarity(a: dict[str, float], b: dict[str, float]) -> float:
@@ -43,7 +45,8 @@ def list_departments(departments: list[Department] = Depends(get_departments)) -
 
 @router.get("/{department_id}", response_model=DepartmentDetailOut)
 def get_department(
-    department_id: str, departments: list[Department] = Depends(get_departments)
+    department_id: str = Path(max_length=64, pattern=r"^[a-z0-9_-]+$"),
+    departments: list[Department] = Depends(get_departments),
 ) -> DepartmentDetailOut:
     dept = _find(departments, department_id)
     return DepartmentDetailOut(
@@ -58,7 +61,8 @@ def get_department(
 
 @router.get("/{department_id}/similar", response_model=list[SimilarDepartmentOut])
 def get_similar_departments(
-    department_id: str, departments: list[Department] = Depends(get_departments)
+    department_id: str = Path(max_length=64, pattern=r"^[a-z0-9_-]+$"),
+    departments: list[Department] = Depends(get_departments),
 ) -> list[SimilarDepartmentOut]:
     target = _find(departments, department_id)
     scored = [
