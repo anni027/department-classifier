@@ -140,6 +140,12 @@ The script checks its prerequisites, pulls the latest commit, builds both
 images, starts the stack, then polls the API's own health endpoint until it
 reports ready. First run takes several minutes — mostly `next build`.
 
+**Always start production through `./deploy.sh`, never with a bare
+`docker compose up`.** Without `-f docker-compose.prod.yml`, Compose defaults
+to `docker-compose.yml`, which is the local development stack. Its Postgres is
+bound to `127.0.0.1` so that mistake is no longer dangerous, but it would still
+start the wrong stack with no reverse proxy and no TLS.
+
 Flags: `--no-pull` (deploy the working tree), `--no-build` (restart without
 rebuilding), `--logs` (follow logs afterwards).
 
@@ -227,11 +233,12 @@ with a different password and kept it. Either restore the original password in
 compose down -v && ./deploy.sh
 ```
 
-**The API is healthy but pages 500.** The `/departments` pages are server
-components, so Next fetches the API from *inside* the container through the
-public URL. That works, but it means the instance must be able to reach its own
-domain. If DNS inside the container is broken, those pages fail while the quiz
-still works.
+**The API is healthy but the `/departments` pages 500.** Those are server
+components, so Next fetches the API from *inside* the frontend container. They
+use `INTERNAL_API_BASE_URL` (`http://backend:8000/api/v1`, set in
+`docker-compose.prod.yml`) rather than looping out through the public domain,
+which would depend on hairpin NAT. If these pages 500 while the quiz works,
+check that variable is still set on the frontend service.
 
 ---
 
@@ -268,3 +275,58 @@ unencrypted.
 - **Accuracy caveat**, unrelated to hosting: the classifier picks the right
   department around 85% of the time, and the correct one is in the top three
   essentially always. See `CLASSIFIER_SPEC.md`.
+
+---
+
+## Security posture
+
+Hardening applied before launch, and what was deliberately left alone. The
+threat model is a public quiz with no accounts, no payments and no PII beyond
+anonymous 1-5 answers — the realistic risk is someone knocking the site over
+during recruitment week, not data theft.
+
+### In place
+
+- **Rate limiting** on session creation (30/min, 200/hour per client IP; 120/min
+  globally). This is the control that bounds how many database rows an
+  anonymous caller can create. Caddy sets `X-Real-IP` with `header_up`, which
+  *replaces* any client-supplied value, and the limiter keys on that. Removing
+  that line from the `Caddyfile` silently makes the limit forgeable — there is
+  a test in `backend/tests/test_rate_limit.py` documenting the dependency.
+- **Bounded connection pool** (20 + 20, 5s timeout). With SQLAlchemy's defaults
+  a few dozen concurrent requests exhausted the pool and blocked worker threads
+  for 30s each, turning a small burst into an outage.
+- **Session reaper**: rows older than 14 days are deleted every 6 hours. Stops a
+  burst permanently consuming disk — a full volume takes Caddy and its
+  certificates down with it, not just the quiz.
+- **Security headers**: HSTS (30 days), CSP, `X-Content-Type-Options`,
+  `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`. Note Caddy
+  v2 does **not** add HSTS automatically — that was v1.
+- **8 KB request body cap** at the proxy; the largest legitimate body is ~120 B.
+- **API docs disabled** when `ENV=production`, and the backend refuses to start
+  if `DATABASE_URL` or `CORS_ORIGINS` are missing, or if CORS is set to `*`.
+- **Bounded path and body inputs**; error responses no longer echo attacker
+  input back into the access log.
+
+### Accepted, with reasoning
+
+- **A session id is a bearer credential.** Anyone holding the UUID can read
+  `/status/{id}` and submit answers into that session. It is a uuid4 (122 bits,
+  not guessable), it lives in `sessionStorage` and never appears in a navigable
+  URL so there is no `Referer` leak, and the page loads no third-party scripts.
+  Worst case is learning one department recommendation or spoiling one quiz.
+  Cookies plus CSRF handling is disproportionate with no accounts and no PII.
+- **`'unsafe-inline'` in `script-src`.** Next's App Router inlines its hydration
+  payload with no nonce unless you add nonce-generating middleware, which is a
+  maintenance liability. The CSP still blocks all external script and connect
+  origins and sets `frame-ancestors 'none'`.
+- **Starlette is pinned below 0.42** transitively by FastAPI 0.115.6, predating
+  the CVE-2025-54121 multipart fix. The app has no file-upload route, so it is
+  unreachable. Revisit at the next dependency refresh, not during launch week.
+- **`npm audit` reports 1 high, 1 moderate** — both `postcss`, both build-time
+  only. PostCSS runs in the builder stage and never ships in the runtime image.
+- **Session ids appear in Caddy access logs**, on stdout on a box only the club
+  can SSH into.
+- **No WAF, SIEM, auth or secrets manager, and no backups.** Rate limiting,
+  headers and a bounded pool cover the actual threat model. If you want the
+  results afterwards, `pg_dump` once at the end of the week.
