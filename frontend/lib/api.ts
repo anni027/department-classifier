@@ -7,7 +7,22 @@ import type {
   StatusResponse,
 } from "@/types/api";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
+const PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
+
+/**
+ * Server components (the /departments pages) fetch from inside the container,
+ * where the public domain does not necessarily route back to the reverse proxy
+ * — relying on hairpin NAT for that is fragile and it fails outright when the
+ * host resolves the name to its own loopback.
+ *
+ * INTERNAL_API_BASE_URL, when set, points the server side straight at the
+ * backend over the compose network. It has no NEXT_PUBLIC_ prefix, so it is
+ * read at runtime on the server only and never reaches the browser bundle.
+ */
+const BASE_URL =
+  typeof window === "undefined"
+    ? (process.env.INTERNAL_API_BASE_URL ?? PUBLIC_BASE_URL)
+    : PUBLIC_BASE_URL;
 
 export class ApiError extends Error {
   status: number;
