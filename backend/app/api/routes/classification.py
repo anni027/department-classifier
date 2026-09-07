@@ -1,9 +1,10 @@
 import random
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 from app.api.deps import get_departments, get_questions, get_repository, get_traits
+from app.api.ratelimit import limiter
 from app.api.schemas import (
     AnswerRequest,
     AnswerResponse,
@@ -50,7 +51,12 @@ def _get_record_or_404(repo: SessionRepository, session_id) -> SessionRecord:
 
 
 @router.post("/start", response_model=StartResponse, status_code=201)
+# The one endpoint that creates rows, so it carries a tighter limit than the
+# global default. `request` must be named exactly that — slowapi looks it up
+# by name to reach the client key.
+@limiter.limit("30/minute;200/hour")
 def start_classification(
+    request: Request,
     departments: list[Department] = Depends(get_departments),
     questions: list[Question] = Depends(get_questions),
     traits: list[str] = Depends(get_traits),

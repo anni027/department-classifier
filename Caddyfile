@@ -4,10 +4,47 @@
 {$DOMAIN} {
 	encode gzip
 
-	# API first: more specific route wins regardless of block order, but
-	# keeping it first reads better.
+	header {
+		# Caddy v2 does NOT add HSTS on its own — that was v1. Automatic
+		# HTTPS only covers certificates and the HTTP->HTTPS redirect.
+		#
+		# 30 days, no includeSubDomains, no preload: this is a short-lived
+		# event on a subdomain the club may retire or reuse, and a one-year
+		# pin on a name you no longer control is a self-inflicted outage.
+		Strict-Transport-Security "max-age=2592000"
+
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+
+		# The frontend loads no third-party assets at all — no CDN fonts, no
+		# analytics — so default-src 'self' needs no exceptions.
+		#
+		# 'unsafe-inline' in script-src is deliberate: Next's App Router
+		# inlines its hydration payload with no nonce unless you add
+		# nonce-generating middleware, which is a maintenance liability for a
+		# student club. The directives that do the real work here are
+		# frame-ancestors, base-uri, form-action and object-src.
+		# style-src 'unsafe-inline' is unavoidable: the components use React
+		# style={{...}} attributes throughout.
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+
+		-Server
+	}
+
 	handle /api/* {
-		reverse_proxy backend:8000
+		# The largest legitimate body is the ~120-byte AnswerRequest.
+		request_body {
+			max_size 8KB
+		}
+
+		reverse_proxy backend:8000 {
+			# Sets (not appends — no `+`), so a client-supplied X-Real-IP is
+			# discarded. app/api/ratelimit.py keys the rate limiter on this,
+			# and REMOVING THIS LINE silently makes the limit forgeable.
+			header_up X-Real-IP {remote_host}
+		}
 	}
 
 	handle {

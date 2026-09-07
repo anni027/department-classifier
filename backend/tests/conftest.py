@@ -50,6 +50,10 @@ def client(departments, questions, traits):
     fake_repo = FakeSessionRepository()
     app.dependency_overrides[get_repository] = lambda: fake_repo
 
+    # Rate limiting is middleware, so dependency overrides do not bypass it.
+    # Tests fire many requests from one "client" and would otherwise 429.
+    app.state.limiter.enabled = False
+
     original_lifespan = app.router.lifespan_context
     app.router.lifespan_context = _noop_lifespan  # skip real-DB startup for API tests
     try:
