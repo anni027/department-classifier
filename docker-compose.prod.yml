@@ -30,7 +30,10 @@ services:
       context: ./backend
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-taqneeq}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-taqneeq}
+      # ENV=production disables the API docs and makes the backend refuse to
+      # start unless DATABASE_URL and CORS_ORIGINS are supplied explicitly.
+      ENV: production
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-taqneeq}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}@postgres:5432/${POSTGRES_DB:-taqneeq}
       CORS_ORIGINS: https://${DOMAIN:?DOMAIN must be set}
       DATA_DIR: app/data
     depends_on:
@@ -44,6 +47,11 @@ services:
         # Baked into the JS bundle at build time — see frontend/Dockerfile.
         NEXT_PUBLIC_API_BASE_URL: https://${DOMAIN}/api/v1
     restart: unless-stopped
+    environment:
+      # Server-side rendering talks to the backend directly over the compose
+      # network instead of looping out through the public domain. Runtime-only
+      # (no NEXT_PUBLIC_ prefix), so it never reaches the browser.
+      INTERNAL_API_BASE_URL: http://backend:8000/api/v1
     depends_on:
       - backend
 
