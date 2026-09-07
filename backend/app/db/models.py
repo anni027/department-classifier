@@ -18,6 +18,7 @@ sessions = Table(
     Column("probabilities", JSONB, nullable=False, server_default="{}"),
     Column("completed", Boolean, nullable=False, server_default="false"),
     Column("recommended_department", String, nullable=True),
-    Column("created_at", TIMESTAMP(timezone=True), server_default=func.now()),
+    # Indexed because the session reaper filters on it (app/db/cleanup.py).
+    Column("created_at", TIMESTAMP(timezone=True), server_default=func.now(), index=True),
     Column("updated_at", TIMESTAMP(timezone=True), server_default=func.now(), onupdate=func.now()),
 )
