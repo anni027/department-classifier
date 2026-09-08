@@ -11,7 +11,12 @@ from tests.fake_repository import FakeSessionRepository
 
 
 @asynccontextmanager
-async def _noop_lifespan(_app):
+async def noop_lifespan(_app):
+    """Skip startup: it calls metadata.create_all against a real database.
+
+    Every TestClient in the suite must use this, or the tests silently depend
+    on a Postgres being up and pass or fail based on the developer's machine.
+    """
     yield
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "app" / "data"
@@ -55,7 +60,7 @@ def client(departments, questions, traits):
     app.state.limiter.enabled = False
 
     original_lifespan = app.router.lifespan_context
-    app.router.lifespan_context = _noop_lifespan  # skip real-DB startup for API tests
+    app.router.lifespan_context = noop_lifespan  # skip real-DB startup for API tests
     try:
         with TestClient(app) as test_client:
             yield test_client

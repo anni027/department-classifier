@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 from app.api.deps import get_departments, get_questions, get_repository, get_traits
 from app.main import app
+from tests.conftest import noop_lifespan
 from tests.fake_repository import FakeSessionRepository
 
 
@@ -20,10 +21,16 @@ def limited_client(departments, questions, traits):
 
     app.state.limiter.enabled = True
     app.state.limiter.reset()
+
+    # Same lifespan skip the shared `client` fixture uses — without it these
+    # tests reach for a real Postgres and pass only by accident.
+    original_lifespan = app.router.lifespan_context
+    app.router.lifespan_context = noop_lifespan
     try:
         with TestClient(app) as client:
             yield client
     finally:
+        app.router.lifespan_context = original_lifespan
         app.state.limiter.reset()
         app.state.limiter.enabled = False
         app.dependency_overrides.clear()
