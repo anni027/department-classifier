@@ -75,3 +75,29 @@ def test_forged_header_cannot_mint_a_fresh_bucket(limited_client):
         _start(limited_client, "203.0.113.10")
 
     assert _start(limited_client, "203.0.113.99").status_code == 201
+
+
+def test_forwarded_for_keys_the_limit_when_real_ip_is_absent(limited_client):
+    """Railway sets no Caddy, so X-Real-IP is absent (or, with its CDN in the
+    path, the CDN edge address — see app/api/ratelimit.py). Falling back to
+    the leftmost X-Forwarded-For entry is what keeps the limit per-student
+    there. Without the fallback every caller keys on the proxy's IP and the
+    global default of 120/minute covers the whole campus at once.
+    """
+
+    def start(forwarded_for):
+        return limited_client.post(
+            "/api/v1/classification/start",
+            headers={"X-Forwarded-For": forwarded_for},
+        )
+
+    for _ in range(30):
+        assert start("203.0.113.10").status_code == 201
+    assert start("203.0.113.10").status_code == 429
+
+    # A different caller is unaffected.
+    assert start("198.51.100.77").status_code == 201
+
+    # A chained header keys on the client, not on the proxy hop that appended
+    # it, so the two entries do not share a bucket.
+    assert start("198.51.100.78, 70.41.3.18, 150.172.238.178").status_code == 201

@@ -1,5 +1,6 @@
 import os
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -14,6 +15,28 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://taqneeq:taqneeq@localhost:5434/taqneeq"
     cors_origins: str = "http://localhost:3000"
     data_dir: str = "app/data"
+
+    @field_validator("database_url")
+    @classmethod
+    def _pin_driver(cls, value: str) -> str:
+        """Force the psycopg3 driver when the URL does not name one.
+
+        Railway (and Render, Heroku and most managed Postgres providers) hand
+        out a bare `postgresql://` URL, and Railway's older plugins used
+        `postgres://`. SQLAlchemy reads `postgresql://` as *psycopg2*, which
+        this project does not install — so the app dies at import with
+        "ModuleNotFoundError: No module named 'psycopg2'" even though the URL
+        looks entirely valid. Rewriting the scheme to the driver pinned in
+        requirements.txt is what makes the provider's own variable usable
+        as-is, with no hand-editing of the connection string.
+
+        A URL that already names a driver (`postgresql+psycopg://`, or an
+        explicit `postgresql+asyncpg://`) is returned untouched.
+        """
+        for prefix in ("postgresql://", "postgres://"):
+            if value.startswith(prefix):
+                return "postgresql+psycopg://" + value[len(prefix):]
+        return value
 
     @property
     def is_production(self) -> bool:
