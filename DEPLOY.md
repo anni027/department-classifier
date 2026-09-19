@@ -1,5 +1,10 @@
 # Deploying on AWS Lightsail
 
+> Deploying the backend and frontend separately instead — backend on Railway,
+> frontend on Vercel? See [`DEPLOY-RAILWAY-VERCEL.md`](DEPLOY-RAILWAY-VERCEL.md).
+> This document covers the single-instance Docker Compose stack, which is the
+> other option.
+
 One Lightsail instance runs the whole stack with Docker Compose: Postgres, the
 FastAPI backend, the Next.js frontend, and Caddy in front terminating TLS.
 
