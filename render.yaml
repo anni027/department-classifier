@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: dept-classifier-api
+    runtime: python
+    repo: https://github.com/DeveloperAJ2799/Department_Classifier_19.0
+    branch: main
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    region: oregon
+    envVars:
+      - key: ENV
+        value: production
+      - key: CORS_ORIGINS
+        value: https://dept-classifier-frontend.vercel.app
+      - key: DATA_DIR
+        value: app/data
+      - fromDatabase:
+          name: dept-classifier-db
+          property: connectionString
+        key: DATABASE_URL
+
+databases:
+  - name: dept-classifier-db
+    databaseName: taqneeq
+    user: taqneeq
+    plan: free
+    region: oregon
