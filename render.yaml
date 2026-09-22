@@ -2,7 +2,7 @@ services:
   - type: web
     name: dept-classifier-api
     runtime: python
-    repo: https://github.com/DeveloperAJ2799/Department_Classifier_19.0
+    repo: https://github.com/anni027/department-classifier
     branch: main
     rootDir: backend
     buildCommand: pip install -r requirements.txt
